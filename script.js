@@ -109,10 +109,10 @@ function retrieveISBNbutton(x){
 // Searches movie database for book title then returns data on relevant movies 
 function retrieveMovie(x){
     
-    //document.getElementById("outputISBN").innerHTML = ""; // Resets list so it only shows current results as opposed to old results
+    
     fetch("https://api.themoviedb.org/3/search/movie?api_key=5edc4080dc87d1163b33ff4042ceca87&language=en-US&query=" + x +"&page=1&include_adult=false").then(a => a.json()).then(response => {
         for(var i = 0; i < response.docs.length; i++) {
-        //   document.getElementById("outputMovie").innerHTML += 
+        //   document.getElementById("outputMovie").innerHTML +=  // need to decide what movie info to show  
         //   "<h2>" + response.docs[i].title + 
         //   "<h2>" + response.docs[i].poster_path[0] +
         //   "<br>"+"<br>";
