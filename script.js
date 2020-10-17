@@ -8,17 +8,7 @@ Purpose:  JavaScript file used to retrieve ISBN of books and display
 */
 //======================================================================
 
-
-
-/* document.write(isbnlist);
-//for (let i = 0; i < isbnlist.length; i++) {
-    
-    //make a button for the isbn and offset each one???
-    //
-
-    
-//}
-
+/* 
 getData();
 
 function getData(){
@@ -56,6 +46,7 @@ function retrieveISBN(){
     document.getElementById("testISBN").innerHTML = testISBN
   } else {
     document.getElementById("testISBN").innerHTML = "Entered text is not a valid ISBN"
+    return;
   }
 
   // Retrieves information on book from ISBN entered into textbox after pressing button
@@ -77,6 +68,7 @@ function retrieveISBN(){
 // Caleb Notes: BELOW ARE JASON'S CHANGES - ADDED COMMENTS TO CLEAR UP EXACTLY WHAT THIS CODE DOES AND DID CODE CLEANUP
 // Retrieves isbnlist array from isbn.js file and associates each item in array to a button
 function printISBNbtn() {
+    document.getElementById("isbnArrBtn").innerHTML
   for (var i = 0; i < isbnlist.length; i++) {
     var id = isbnlist[i];
     var btn = document.createElement("button");
@@ -87,10 +79,9 @@ function printISBNbtn() {
         retrieveISBNbutton(id) 
       }
     })(id);
-    //btn.addEventListener("click", retrieveISBNbutton(btn.value));
     btn.appendChild(t);
-    document.body.appendChild(btn);
-  }
+    isbnArrBtn.appendChild(btn);
+    }
 }
 
 // Retrieves information on book from ISBN associated to button after it is pressed
@@ -105,5 +96,5 @@ function retrieveISBNbutton(x){
       }
     }
   );
-  document.getElementById("outputISBN").innerHTML = "TESTING TO SEE IF PRINT"
+  document.getElementById("outputISBN").innerHTML = ""
 }
