@@ -38,7 +38,7 @@ obj = JSON.parse(data);
 document.write(data);
 document.write(obj); */
 
-// Commented out all the stuff above for a second while I try this
+// Commented out all the stuff above for a second while I try this. We could delete this and clear it up if not needed
 
 function retrieveISBN(){
   // Select Files Code
@@ -74,46 +74,36 @@ function retrieveISBN(){
   document.getElementById("outputISBN").innerHTML = "TESTING TO SEE IF PRINT"
 }
 
+// Caleb Notes: BELOW ARE JASON'S CHANGES - ADDED COMMENTS TO CLEAR UP EXACTLY WHAT THIS CODE DOES AND DID CODE CLEANUP
+// Retrieves isbnlist array from isbn.js file and associates each item in array to a button
 function printISBNbtn() {
-    for (var i = 0; i < isbnlist.length; i++) {
-       var id = isbnlist[i];
-       
-       var btn = document.createElement("button");
-       var t = document.createTextNode(isbnlist[i]);
-       btn.value = isbnlist[i];   
-       btn.onclick = (function(id){
-        return function() {retrieveISBNbutton(id) }
-       })(id);
-       //btn.addEventListener("click", retrieveISBNbutton(btn.value));
-       btn.appendChild(t);
-       document.body.appendChild(btn);
-       
-
-
-
-    }
+  for (var i = 0; i < isbnlist.length; i++) {
+    var id = isbnlist[i];
+    var btn = document.createElement("button");
+    var t = document.createTextNode(isbnlist[i]);
+    btn.value = isbnlist[i];   
+    btn.onclick = (function(id) {
+      return function() {
+        retrieveISBNbutton(id) 
+      }
+    })(id);
+    //btn.addEventListener("click", retrieveISBNbutton(btn.value));
+    btn.appendChild(t);
+    document.body.appendChild(btn);
+  }
 }
 
+// Retrieves information on book from ISBN associated to button after it is pressed
 function retrieveISBNbutton(x){
-    
-   
-  
-    // Really basic input validation that checks length of entered text.
-    // Caleb Notes: I'll try to look at how to validate it so it only accepts numerical text on top of text length
-  
-  
-    // Retrieves information on book from ISBN entered into textbox after pressing button
-    // Caleb Notes: NOT WORKING AS INTENDED AT THE MOMENT, ISBN API not working, had to use Search API. Also, it loads stuff very slowly. 
-    // CODE PULLED FROM: https://www.youtube.com/watch?v=LNKuZBYpl4o
-    //document.getElementById("outputISBN").innerHTML = ""; // Resets list so it only shows current results as opposed to old results
-    fetch("https://openlibrary.org/search.json?q=" + x).then(a => a.json()).then(response => {
-        for(var i = 0; i < response.docs.length; i++) {
-          document.getElementById("outputISBN").innerHTML += 
-          "<h2>" + response.docs[i].title + 
-          "<h2>" + response.docs[i].author_name[0] +
-          "<br><img src = 'http://covers.openlibrary.org/b/isbn/" + response.docs[i].isbn[0] + "-M.jpg'><br>";
-        }
+  //document.getElementById("outputISBN").innerHTML = ""; // Resets list so it only shows current results as opposed to old results
+  fetch("https://openlibrary.org/search.json?q=" + x).then(a => a.json()).then(response => {
+      for(var i = 0; i < response.docs.length; i++) {
+        document.getElementById("outputISBN").innerHTML += 
+        "<h2>" + response.docs[i].title + 
+        "<h2>" + response.docs[i].author_name[0] +
+        "<br><img src = 'http://covers.openlibrary.org/b/isbn/" + response.docs[i].isbn[0] + "-M.jpg'><br>";
       }
-    );
-    document.getElementById("outputISBN").innerHTML = "TESTING TO SEE IF PRINT"
-  }
+    }
+  );
+  document.getElementById("outputISBN").innerHTML = "TESTING TO SEE IF PRINT"
+}
