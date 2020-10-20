@@ -18,16 +18,8 @@ function retrieveISBN(){
     const fileList = event.target.files;
     console.log(fileList);
   });
-
-  // Really basic input validation that checks length of entered text. If the length of the ISBN isn't 10 or 13 characters long, then it will display an error message.
-  // Caleb Notes: I'll try to look at how to validate it so it only accepts numerical text on top of text length
-  var testISBN = document.getElementById("inputISBN").value;
-  if (testISBN.length == 10 || testISBN.length == 13) {
-    document.getElementById("testISBN").innerHTML = testISBN
-  } else {
-    document.getElementById("testISBN").innerHTML = "Entered text is not a valid ISBN"
-    return;
-  }
+  
+  validateISBN(document.getElementById("inputISBN").value);
 
   // Retrieves information on book from ISBN entered into textbox after pressing button
   // Caleb Notes: NOT WORKING AS INTENDED AT THE MOMENT, ISBN API not working, had to use Search API. Also, it loads stuff very slowly. 
@@ -46,10 +38,21 @@ function retrieveISBN(){
       }
     }
   );
-  document.getElementById("outputISBN").innerHTML = "TESTING TO SEE IF PRINT"
+  document.getElementById("outputISBN").innerHTML = ""
 }
 
-// Caleb Notes: BELOW ARE JASON'S CHANGES - ADDED COMMENTS TO CLEAR UP EXACTLY WHAT THIS CODE DOES AND DID CODE CLEANUP
+  // Really basic input validation that checks length of entered text. If the length of the ISBN isn't 10 or 13 characters long, then it will display an error message.
+  // Caleb Notes: I'll try to look at how to validate it so it only accepts numerical text on top of text length
+function validateISBN(x){
+    var testISBN = x;
+    if (testISBN.length == 10 || testISBN.length == 13) {
+      document.getElementById("testISBN").innerHTML = testISBN
+    } else {
+      document.getElementById("testISBN").innerHTML = "Entered text is not a valid ISBN"
+      return;
+    }
+}
+
 // Retrieves isbnlist array from isbn.js file and associates each item in array to a button
 function printISBNbtn() {
   document.getElementById("isbnArrBtn").innerHTML
@@ -60,7 +63,8 @@ function printISBNbtn() {
     btn.value = isbnlist[i];   
     btn.onclick = (function(id) {
       return function() {
-        retrieveISBNbutton(id) 
+        retrieveISBNbutton(id);
+        validateISBN(id); 
       }
     })(id);
     btn.appendChild(t);
@@ -70,7 +74,6 @@ function printISBNbtn() {
 
 // Retrieves information on book from ISBN associated to button after it is pressed
 function retrieveISBNbutton(x){
-  //document.getElementById("outputISBN").innerHTML = ""; // Resets list so it only shows current results as opposed to old results
   fetch("https://openlibrary.org/search.json?q=" + x).then(a => a.json()).then(response => {
       for(var i = 0; i < response.docs.length; i++) {
         document.getElementById("outputISBN").innerHTML += 
@@ -88,17 +91,27 @@ function retrieveISBNbutton(x){
   document.getElementById("outputISBN").innerHTML = ""; // Resets list so it only shows current results as opposed to old results
 }
 
-// Searches movie database for book title then returns data on relevant movies 
+// Searches movie database for book title then returns link to moviedb for relevant movies or output if no movies found 
 function retrieveMovie(x){
-  fetch("https://api.themoviedb.org/3/search/movie?api_key=5edc4080dc87d1163b33ff4042ceca87&language=en-US&query=" + x +"&page=1&include_adult=false").then(a => a.json()).then(response => {
-      for(var i = 0; i < 10; i++) {
-        // document.getElementById("outputMovie").innerHTML +=  // need to decide what movie info to show  
-        // "<h2>" + response.docs[i].title + 
-        // "<h2>" + response.docs[i].poster_path[0] +
-        // "<br>"+"<br>";
-        document.getElementById("outputMovie").innerHTML = "A movie associated with the book " + x + " has been found";
+    var movieOutput = "yes"; 
+  fetch("https://api.themoviedb.org/3/search/movie?api_key=5edc4080dc87d1163b33ff4042ceca87&language=en-US&query=" + x +"&page=1&include_adult=false").then(a => a.json()).then(response => { //queries book title using moviedb api key
+       {
+        if (response.total_results == 0) // Output if no movies found
+        { 
+            movieOutput = "No movies related to this book were found"
+            
+        }
+        else 
+        {
+            var searchTitle = bookTitle.replace(/ /g, "+"); //Prepares title for seach by replacing spaces with +  
+            movieOutput = response.total_results + " movies related to this book were found"
+            document.getElementById("outputMovie").innerHTML += 
+            movieOutput + "<br> <br>"+
+            "<a href=https://www.themoviedb.org/search?query="+searchTitle+"> Click here</a> to view them"; //Direct link to moviedb search for booktitle
+        }
+        
       }
     }
   );
-  document.getElementById("outputMovie").innerHTML = "";
+  document.getElementById("outputMovie").innerHTML = ""; // Resets list so it only shows current results as opposed to old results
 }
