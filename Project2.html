@@ -21,6 +21,29 @@ Purpose:    HTML file used to display the content printed in the JS file
       body {
         padding: 0;
         margin: 10;
+        background-color: lightblue;
+      }
+
+      p.a {
+        text-align: center;
+        font-family: "Trebuchet MS", Helvetica, sans-serif;
+      }
+
+      h2.a {
+        text-align: center;
+        font-family: "Trebuchet MS", Helvetica, sans-serif;
+      }
+
+      img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
     </style>
 
@@ -29,31 +52,24 @@ Purpose:    HTML file used to display the content printed in the JS file
     <script src="isbn.js"></script>
   </head>
 
+  <!-- Onload retrieves isbnlist array from isbn.js file and associates each item in array to a button -->
   <body onload="printISBNbtn();">
     <main>
       <!-- ISBN Text Input -->
       <input id = "inputISBN">
       <button onclick="retrieveISBN()">Search ISBN</button>
-      <br><br>
-
-      <!-- ISBN File Input -->
-      Select File: <input type = "file" id = "fileSelectorISBN">
-      <br><br>
 
       <!-- ISBN Validation Test -->
-      ISBN Entered: <div id = "testISBN"></div>
-      <br><br>
+      <p class = 'a'>ISBN Entered:</p><div id = "testISBN"></div>
 
       <!-- ISBN Array Buttons -->
-      ISBNs read from array :
-      <br>
-      <div id = "isbnArrBtn"></div>
+      <p class = 'a'>ISBNs read from file:</p>
+      <div class = "center" id = "isbnArrBtn"></div>
       <br><br>
 
       <!-- Display book details -->
       <div id = "outputISBN"></div>
 
-      <br><br>
       <!-- Display movie details -->
       <div id = "outputMovie"></div>
       
