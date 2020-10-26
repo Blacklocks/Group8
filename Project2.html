@@ -1,6 +1,6 @@
 <!-- ====================================================================== -->
 <!-- 
-Name:       Caleb Del Rosario (u3190431) & Jason Wood (u3075794)
+Name:       Caleb Del Rosario (u3190431) & Jason Wood (u3075794) & Caleb Dhaliwal-McLeod - (u3199647)
 File:       Project2.html
 Date:       16/10/2020
 Purpose:    HTML file used to display the content printed in the JS file
@@ -53,7 +53,7 @@ Purpose:    HTML file used to display the content printed in the JS file
   </head>
 
   <!-- Onload retrieves isbnlist array from isbn.js file and associates each item in array to a button -->
-  <body onload="printISBNbtn();">
+  <body onload="printISBNbtn(); arrayred();">
     <main>
       <!-- ISBN Text Input -->
       <input id = "inputISBN">
@@ -63,7 +63,8 @@ Purpose:    HTML file used to display the content printed in the JS file
       <p class = 'a'>ISBN Entered:</p><div id = "testISBN"></div>
 
       <!-- ISBN Array Buttons -->
-      <p class = 'a'>ISBNs read from file:</p>
+      <div id = "arrayRead"></div>
+      <!-- <p class = 'a'>ISBNs read from file:</p>-->
       <div class = "center" id = "isbnArrBtn"></div>
       <br><br>
 
