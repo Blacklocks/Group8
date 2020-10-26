@@ -29,6 +29,11 @@ Purpose:    HTML file used to display the content printed in the JS file
         font-family: "Trebuchet MS", Helvetica, sans-serif;
       }
 
+      h1.a {
+        text-align: center;
+        font-family: "Trebuchet MS", Helvetica, sans-serif;
+      }
+
       h2.a {
         text-align: center;
         font-family: "Trebuchet MS", Helvetica, sans-serif;
@@ -45,6 +50,10 @@ Purpose:    HTML file used to display the content printed in the JS file
         justify-content: center;
         align-items: center;
       }
+      .container {
+        height: 30px;
+        position: relative;
+      }
     </style>
 
     <!-- Links JS files -->
@@ -53,11 +62,23 @@ Purpose:    HTML file used to display the content printed in the JS file
   </head>
 
   <!-- Onload retrieves isbnlist array from isbn.js file and associates each item in array to a button -->
-  <body onload="printISBNbtn(); arrayred();">
+  <body onload="printISBNbtn(); arrayread();">
     <main>
+
+      <!-- Title and description -->
+      
+      <h1 class ="a">ISBN Search Directory</h1>
+      
+      <p class = 'a'> Begin searching by entering a 10 or 13 digit numerical ISBN <br> or click one of the ISBN buttons read from the array</p>
+
+
       <!-- ISBN Text Input -->
+      <div class="container">
+      <div class = "center">
       <input id = "inputISBN">
       <button onclick="retrieveISBN()">Search ISBN</button>
+      </div>
+      </div>
 
       <!-- ISBN Validation Test -->
       <p class = 'a'>ISBN Entered:</p><div id = "testISBN"></div>
@@ -66,7 +87,7 @@ Purpose:    HTML file used to display the content printed in the JS file
       <div id = "arrayRead"></div>
       <!-- <p class = 'a'>ISBNs read from file:</p>-->
       <div class = "center" id = "isbnArrBtn"></div>
-      <br><br>
+      <br>
 
       <!-- Display book details -->
       <div id = "outputISBN"></div>

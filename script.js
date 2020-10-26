@@ -49,7 +49,7 @@ function validateISBN(x){
   }
 }
 //Checks if array is accesible and outputs string if true
-function arrayred(){
+function arrayread(){
   if (typeof isbnlist != undefined)document.getElementById("arrayRead").innerHTML = "<p class = 'a'>ISBNs read from file:</p>";
   }
 
@@ -119,5 +119,4 @@ function retrieveMovie(x){
     }
   );
   document.getElementById("outputMovie").innerHTML = ""; // Resets list so it only shows current results as opposed to old results
-  bookTitle="";
 }
